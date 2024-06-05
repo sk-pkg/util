@@ -126,3 +126,21 @@ func GetNowToDayEndSecond() int {
 
 	return int(dayEnd.Sub(now).Seconds())
 }
+
+// SecondsUntilTimestamp 计算当前时间与目标时间戳之间的时间差（秒）
+func SecondsUntilTimestamp(targetTimestampSec int64) int64 {
+	// 将秒级时间戳转换为 time.Time 对象
+	targetTime := time.Unix(targetTimestampSec, 0)
+
+	// 获取当前时间
+	now := time.Now()
+
+	// 计算时间差
+	duration := targetTime.Sub(now)
+
+	// 将时间差转换为秒
+	seconds := duration.Seconds()
+
+	// 返回时间差，四舍五入为最接近的整数
+	return int64(seconds)
+}
