@@ -6,9 +6,9 @@ import (
 )
 
 var (
-	letters = []byte("abcdefhkmnrstuvwxz0123456789")
-	longLetters = []byte("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
-    base32Letters = []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZ234567")
+	letters       = []byte("abcdefhkmnrstuvwxz0123456789")
+	longLetters   = []byte("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+	base32Letters = []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZ234567")
 )
 
 // RandLowStr 随机字符串，包含 0~9 和 a~z - [g,i,j,l,o,p,q,y]
@@ -70,11 +70,21 @@ func RandBase32Str(length int) string {
 
 // SpliceStr 拼接字符串
 func SpliceStr(p ...string) string {
-	var b strings.Builder
-	l := len(p)
-	for i := 0; i < l; i++ {
-		b.WriteString(p[i])
+	// 预计算总长度
+	total := 0
+	for _, s := range p {
+		total += len(s)
 	}
+
+	// 预分配内存
+	var b strings.Builder
+	b.Grow(total)
+
+	// 写入字符串
+	for _, s := range p {
+		b.WriteString(s)
+	}
+
 	return b.String()
 }
 

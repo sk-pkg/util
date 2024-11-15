@@ -54,8 +54,8 @@ func TestSpliceStr(t *testing.T) {
 }
 
 func BenchmarkSpliceStr(b *testing.B) {
-	str := "0"
+	strs := []string{"hello", "world", "test", "string"}
 	for i := 0; i < b.N; i++ {
-		str = SpliceStr(str, "0")
+		SpliceStr(strs...)
 	}
 }
